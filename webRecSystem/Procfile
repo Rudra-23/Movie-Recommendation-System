@@ -1,0 +1,2 @@
+  
+web: gunicorn webRecSystem.wsgi:application --log-file -
