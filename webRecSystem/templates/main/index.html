@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Recommendations</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+        integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            /*background-color:rgb(189, 228, 241);*/
+            background-image: linear-gradient(to bottom right, red, yellow);
+            height: 1500px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container my-4">
+        <h2 style="display: flex;align-items: center;justify-content: center;font-weight: 1000;color: black;">Movie
+            Recommendations</h2>
+        <div class="container my-4">
+            <form method="POST" action="/">
+                {% csrf_token %}
+                <input required list="datalistmovie" type="text" name='search' placeholder="Enter Movie Name"
+                    class="form-control col-sm-10 d-inline" style="border: 2px solid black;" id="search"
+                    value="{{movie}}">
+                <button type="submit" style="border: 2px solid black;" class="btn btn-success">Recommend</button>
+                <datalist id="datalistmovie">
+                    {% for ml in mlist%}
+                    <option value="{{ml}}">
+                        {% endfor %}
+                </datalist>
+            </form>
+        </div>
+        {% if flag %}
+        <div class="container my-2">
+            <div class="row">
+                {% for m in reclist %}
+                <div class="col-sm-4 py-2 px-2">
+                    <div class="card" style="width: 18rem;border: 2px solid black;">
+                        <!-- <img src="..." class="card-img-top" alt="...">-->
+                        <div class="card-body">
+                            <h5 class="card-title"><b>{{m.0}}</b></h5>
+                            <p class="card-text" style="font-size:small;height: 200px; overflow: auto;">{{m.1}}</p>
+
+                            <form method="POST" action="/">
+                                {% csrf_token %}
+
+                                <button type="submit" class="btn btn-primary" value="{{m.0}}"
+                                    name="search">Recommend</button>
+                            </form>
+                        </div>
+
+
+                    </div>
+                </div>
+                {% endfor %}
+
+            </div>
+        </div>
+        {% endif %}
+        {% if not flag %}
+        {% if post %}
+        <h3>Sorry we can't find your movie in our database.Kindly select from suggestions!</h3>
+        {% endif %}
+        {% endif %}
+    </div>
+</body>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+    crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+    integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+    crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+    integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
+    crossorigin="anonymous"></script>
+
+</html>
