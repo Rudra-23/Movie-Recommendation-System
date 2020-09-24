@@ -1,1 +1,0 @@
-web: gunicorn CarPricePrediction.wsgi:application --log-file -
