@@ -4,6 +4,13 @@ A content based movie recommendation system.
 
 <a href="https://suggest-some-movies.herokuapp.com/">Link to Website</a>
 
+To Run the Web application:
+1) Install python >=3.0.
+2) Clone the repository.
+3) Open terminal and run code : pip install -r requirements.txt.
+4) Change your path to directory containing manage.py.
+5) Run python manage.py runserver and open localhost:8000 in browser.
+
 Technologies used:
 
 1) Machine Learning.(python)
