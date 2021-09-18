@@ -12,7 +12,6 @@ def index(requests):
         reclist=[]
         try:
             reclist =recommend(movie)
-            
         except:
             reclist =["Sorry we can't find your movie in our database."]
             flag=False
@@ -35,7 +34,7 @@ def recommend(movie):
     i=df_comb.loc[df_comb['title']==movie].index[0]
     List =list(enumerate(similarity[i]))
     List_sorted =sorted(List,reverse=True,key=lambda x:x[1])
-    Final_list=List_sorted[1:15]    
+    Final_list=List_sorted[:16]    
     recommend_list =[]
     for i in range(len(Final_list)):
         a=Final_list[i][0]

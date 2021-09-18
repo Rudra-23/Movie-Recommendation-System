@@ -14,6 +14,7 @@
             background-image: linear-gradient(to right, #f9d423 0%, #ff4e50 100%);
             height: 1500px;
         }
+
         .header-title {
             display: flex;
             align-items: center;
@@ -22,21 +23,32 @@
             font-weight: 1000;
             color: black;
             text-shadow: 3px 3px red;
+            width: 100%;
+            text-align: center;
+        }
+
+        .main {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .your-movie {
+            border: 2px solid black;
         }
     </style>
 </head>
 
 <body>
     <div class="container my-4">
-        <h2  class="header-title">Movie
-            Recommendations</h2>
+        <h2 class="header-title">Movie Recommendations</h2>
         <div class="container my-4">
             <form method="POST" action="/">
                 {% csrf_token %}
                 <input required list="datalistmovie" type="text" name='search' placeholder="Enter Movie Name"
                     class="form-control col-sm-10 d-inline" style="border: 2px solid black;" id="search"
                     value="{{movie}}">
-                <button type="submit" style="border: 2px solid black;" class="btn btn-success">Recommend</button>
+                <button type="submit" style="border: 2px solid black;" class="btn btn-success my-1">Recommend</button>
                 <datalist id="datalistmovie">
                     {% for ml in mlist %}
                     <option value="{{ml}}">
@@ -47,8 +59,21 @@
         {% if flag %}
         <div class="container my-2">
             <div class="row">
-                {% for m in reclist %}
-                <div class="col-sm-4 py-2 px-2">
+                <div class="card text-center col-sm-12 my-3 your-movie">
+                    <div class="card-header">
+                        <h5>Your Movie</h5>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title"><b><u>{{ reclist.0.0 }}</u></b></h5>
+                        <p class="card-text">{{ reclist.0.1 }}</p>
+                        <a href="/" class="btn btn-danger" style="border: 1px solid black;">Clear Screen</a>
+                    </div>
+                    <div class="card-footer">
+                        <h6>Here are some movies you may like</h6>
+                    </div>
+                </div>
+                {% for m in reclist|slice:"1:" %}
+                <div class="col-sm-4 py-2 px-2 main">
                     <div class="card" style="width: 18rem;border: 2px solid black;">
                         <!-- <img src="..." class="card-img-top" alt="...">-->
                         <div class="card-body">
@@ -58,12 +83,10 @@
                             <form method="POST" action="/">
                                 {% csrf_token %}
 
-                                <button type="submit" class="btn btn-primary" value="{{m.0}}"
-                                    name="search">Recommend</button>
+                                <button type="submit" class="btn btn-danger" style="border: 1px solid black;"
+                                    value="{{m.0}}" name="search">Recommend</button>
                             </form>
                         </div>
-
-
                     </div>
                 </div>
                 {% endfor %}
@@ -72,9 +95,10 @@
         </div>
         {% endif %}
         {% if not flag %}
-        {% if post %}
-        <h3>Sorry we can't find your movie in our database.Kindly select from suggestions!</h3>
-        {% endif %}
+            {% if post %}
+            <h3 style="width: 100%; text-align: center;">Sorry, we can't find your movie in our database.</h3> 
+            <h3 style="width: 100%; text-align: center;"> Kindly select from the options.</h3>
+            {% endif %}
         {% endif %}
     </div>
 </body>
