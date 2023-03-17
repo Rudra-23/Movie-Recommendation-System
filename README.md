@@ -2,7 +2,7 @@
 
 A content based movie recommendation system.
 
-<a href="https://suggest-some-movies.onrender.com/">Link to Website</a>
+<a href="https://suggest-some-movies.onrender.com/">Link to Website</a> [Can take some time...]
 
 To Run the Web application in your local machine:
 1) Install python >=3.0.
